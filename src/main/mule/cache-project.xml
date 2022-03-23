@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<mule xmlns:os="http://www.mulesoft.org/schema/mule/os" xmlns:db="http://www.mulesoft.org/schema/mule/db"
+	xmlns:ee="http://www.mulesoft.org/schema/mule/ee/core"
+	xmlns:http="http://www.mulesoft.org/schema/mule/http" xmlns="http://www.mulesoft.org/schema/mule/core" xmlns:doc="http://www.mulesoft.org/schema/mule/documentation" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.mulesoft.org/schema/mule/core http://www.mulesoft.org/schema/mule/core/current/mule.xsd
+http://www.mulesoft.org/schema/mule/http http://www.mulesoft.org/schema/mule/http/current/mule-http.xsd
+http://www.mulesoft.org/schema/mule/ee/core http://www.mulesoft.org/schema/mule/ee/core/current/mule-ee.xsd
+http://www.mulesoft.org/schema/mule/db http://www.mulesoft.org/schema/mule/db/current/mule-db.xsd
+http://www.mulesoft.org/schema/mule/os http://www.mulesoft.org/schema/mule/os/current/mule-os.xsd">
+	<http:listener-config name="HTTP_Listener_config" doc:name="HTTP Listener config" doc:id="3c90eee3-0050-447f-80f1-fc5d97002784" >
+		<http:listener-connection host="0.0.0.0" port="8081" />
+	</http:listener-config>
+	<ee:object-store-caching-strategy name="Caching_Strategy" doc:name="Caching Strategy" doc:id="856d391f-ed8e-42f7-9cc1-955ea4e5f9ce" keyGenerationExpression="#[attributes.queryParams.id]" >
+		<os:private-object-store alias="Cache" persistent="false" />
+	</ee:object-store-caching-strategy>
+	<db:config name="Database_Config" doc:name="Database Config" doc:id="2e1ec98e-0d4e-4928-a5ea-d67ebe27722d" >
+		<db:my-sql-connection host="mudb.learn.mulesoft.com" port="3306" user="mule" password="mule" database="training" />
+	</db:config>
+	<flow name="cache-projectFlow" doc:id="80f4478f-4323-4e67-bd8d-35a119f85add" >
+		<http:listener doc:name="Listener" doc:id="058c48a3-7874-4e75-b7b2-922f325f1917" config-ref="HTTP_Listener_config" path="/db"/>
+		<set-variable value="12" doc:name="Set Variable" doc:id="9f4cc49a-7c04-44ca-a1cc-8169834ee6b0" variableName="q"/>
+		<ee:cache doc:name="Cache" doc:id="cd955569-f670-4d5f-86a0-9f19ad6e1a67" cachingStrategy-ref="Caching_Strategy">
+			<db:select doc:name="Select" doc:id="70b68347-d6a7-4d77-9ecb-ad90a8bbe804" config-ref="Database_Config">
+				<db:sql ><![CDATA[select * from american where ID = :id]]></db:sql>
+				<db:input-parameters ><![CDATA[#[{id : attributes.queryParams.id}]]]></db:input-parameters>
+			</db:select>
+		</ee:cache>
+		<ee:transform doc:name="Transform Message" doc:id="c15735f2-c251-4741-a9f2-ea34ed2aea2e" >
+			<ee:message >
+				<ee:set-payload ><![CDATA[%dw 2.0
+output application/json
+---
+payload]]></ee:set-payload>
+			</ee:message>
+		</ee:transform>
+	</flow>
+</mule>
