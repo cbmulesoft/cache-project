@@ -40,13 +40,13 @@
 
 						<password>Kolkata@17041993</password>
 
-						<environment>SANDBOX</environment>
+						<environment>Sandbox</environment>
 
 						<applicationName>cache-project</applicationName>
 
 						<businessGroup>SFDC</businessGroup>
 
-						<workerType>micro</workerType>
+						<workerType>Micro</workerType>
 
 						<workers>1</workers>
 
