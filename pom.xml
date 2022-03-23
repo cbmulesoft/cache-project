@@ -30,35 +30,35 @@
 				<version>${mule.maven.plugin.version}</version>
 				<extensions>true</extensions>
 				<configuration>
-					<sharedLibraries>
-						<sharedLibrary>
-							<groupId>com.mycompany</groupId>
-							<artifactId>mysql-connector-java-8.0.16</artifactId>
-						</sharedLibrary>
-					</sharedLibraries>
 					<cloudHubDeployment>
 
-                        <uri>https://anypoint.mulesoft.com</uri>
+						<uri>https://anypoint.mulesoft.com</uri>
 
-                        <muleVersion>4.4.0</muleVersion>
+						<muleVersion>4.4.0</muleVersion>
 
-                        <username>cbmule</username>
+						<username>cbmulesoft</username>
 
-                        <password>Kolkata@17041993</password>
+						<password>Kolkata@17041993</password>
 
-                        <environment>SANDBOX</environment>
+						<environment>SANDBOX</environment>
 
-                        <applicationName>cache-project</applicationName>
+						<applicationName>cache-project</applicationName>
 
-                        <businessGroup>SFDC</businessGroup>
+						<businessGroup>SFDC</businessGroup>
 
-                        <workerType>micro</workerType>
+						<workerType>micro</workerType>
 
-                        <workers>1</workers>
+						<workers>1</workers>
 
-                        <objectStoreV2>true</objectStoreV2>
+						<objectStoreV2>true</objectStoreV2>
 
-                    </cloudHubDeployment>
+					</cloudHubDeployment>
+					<sharedLibraries>
+						<sharedLibrary>
+							<groupId>mysql</groupId>
+							<artifactId>mysql-connector-java</artifactId>
+						</sharedLibrary>
+					</sharedLibraries>
 				</configuration>
 			</plugin>
 		</plugins>
@@ -90,9 +90,9 @@
 			<classifier>mule-plugin</classifier>
 		</dependency>
 		<dependency>
-			<groupId>com.mycompany</groupId>
-			<artifactId>mysql-connector-java-8.0.16</artifactId>
-			<version>0.1</version>
+			<groupId>mysql</groupId>
+			<artifactId>mysql-connector-java</artifactId>
+			<version>5.1.48</version>
 		</dependency>
 	</dependencies>
 
@@ -122,6 +122,4 @@
 			</snapshots>
 		</pluginRepository>
 	</pluginRepositories>
-	
-
 </project>
