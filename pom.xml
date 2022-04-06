@@ -36,19 +36,19 @@
 
 						<muleVersion>4.4.0</muleVersion>
 
-						<username>cbmule</username>
+						<username>${anypoint.username}</username>
 
-						<password>Kolkata@17041993</password>
+						<password>${anypoint.password}</password>
 
-						<environment>Sandbox</environment>
+						<environment>${env}</environment>
 
-						<applicationName>cache-project</applicationName>
+						<applicationName>${appname}</applicationName>
 
-						<businessGroup>SFDC</businessGroup>
+						<businessGroup>${business}</businessGroup>
 
-						<workerType>Micro</workerType>
+						<workerType>${vCore}</workerType>
 
-						<workers>1</workers>
+						<workers>${workers}</workers>
 
 						<objectStoreV2>true</objectStoreV2>
 
